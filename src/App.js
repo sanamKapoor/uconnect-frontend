@@ -1,25 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
-function App() {
+import store from './redux/store';
+import HomePage from './Layout/Pages/HomePage';
+import ProfilePage from './Layout/Pages/ProfilePage';
+import MobileNaviation from './Layout/components/Common/MobileNavigation';
+import CreatePost from './Layout/Pages/CreatePost';
+import SearchUsers from './Layout/Pages/SearchUsers';
+import ErrorPage from './Layout/Pages/ErrorPage';
+
+const App = () => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Router>
+        <Provider store={store}>
+          <MobileNaviation />
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/profile/:id" component={ProfilePage} />
+            <Route exact path="/search" component={SearchUsers} />
+            <Route exact path="/post" component={CreatePost} />
+            <Route path="*" component={ErrorPage} />
+          </Switch>
+        </Provider>
+      </Router>
   );
 }
 

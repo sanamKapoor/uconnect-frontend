@@ -11,7 +11,7 @@ import { modalError, modalMsg, showSuccessToastFun } from '../../redux/actions/m
 function CreatePost() {
 
     const dispatch = useDispatch();
-    const { userId } = useSelector(state => state.user)
+    const { userId } = useSelector(state => state.auth)
     const { modalSuccessMsg, showSuccessToast, modalErrorMsg } = useSelector(state => state.modal);
     
     useEffect(() => {

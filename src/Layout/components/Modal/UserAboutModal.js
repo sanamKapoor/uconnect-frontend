@@ -11,7 +11,7 @@ function UserAboutModal({ show, onHide, user }) {
 
   const inputRef = createRef();
   const dispatch = useDispatch();
-  const { userId } = useSelector(state => state.user);
+  const { userId } = useSelector(state => state.auth);
   const { modalErrorMsg, modalLoading, showErrorToast } = useSelector(state => state.modal);
 
   const [profession, setProfession] = useState('');

@@ -9,7 +9,8 @@ import { backendReqModal  } from '../../../redux/actions/modalActions';
 function UserProfileData({ usr, isAdmin }) {
 
     const dispatch = useDispatch();
-    const { userId, user } = useSelector(state => state.user);
+    const { user } = useSelector(state => state.user);
+    const { userId } = useSelector(state => state.auth);
 
     const [warningModal, setWarningModal] = useState(false);
     const [usersModal, setUsersModal] = useState(false);
@@ -117,7 +118,6 @@ function UserProfileData({ usr, isAdmin }) {
             onHide={() => setWarningModal(false)}
             msg={warningMsg}
             element={deletedEle}
-            userId={userId}
         />
 
         <UsersModal 

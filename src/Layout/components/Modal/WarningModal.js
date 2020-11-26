@@ -4,13 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { backendReqModal } from '../../../redux/actions/modalActions';
 import { fetchProfilePosts } from '../../../redux/actions/postActions';
+import { logOutUser } from '../../../redux/actions/authActions'; 
 
 function WarningModal(props) {
 
-    const { show, onHide, msg, postId, element, userId } = props;
+    const { show, onHide, msg, postId, element } = props;
 
     const dispatch = useDispatch();
-    const { postErrorMsg } = useSelector(state => state.post)
+    const { modalErrorMsg } = useSelector(state => state.modal)
+    const { userId } = useSelector(state => state.auth);
     
     const deleteHandler = () => {
       switch(element){
@@ -23,11 +25,14 @@ function WarningModal(props) {
           break;
         case 'account':
           dispatch(backendReqModal(`/user/${userId}`, 'DELETE'));
+          setTimeout(() => {
+            dispatch(logOutUser())
+          }, 2500)
           break;
         default:
           onHide()
       }
-        if(!postErrorMsg){
+        if(!modalErrorMsg){
           onHide()
         }
     }

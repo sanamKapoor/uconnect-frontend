@@ -3,7 +3,6 @@ import * as Action from '../types/userTypes';
 const initialState = {
     users: [],
     user: {},
-    userId: '5f8084f4d074fb1404000cc5',
     userLoading: false,
     userError: '',
     userSuccessMsg: ''

@@ -16,7 +16,7 @@ function ImageUploader({mediaFile, fileHandler}) {
                 type="file"
                 ref={filePickerRef}
                 style={{"display": "none"}}
-                // accept=".jpg,.jpeg,.png,.mp4"
+                accept=".jpg,.jpeg,.png,.mp4"
                 onChange={fileHandler}
                 />
             <button type="button" onClick={pickerFileHandler} className="btn btn-secondary btn-sm my-2">Upload</button>

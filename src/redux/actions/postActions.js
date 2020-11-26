@@ -8,7 +8,7 @@ const postLoading = (isLoading) => {
     }   
 }
 
-const postErrors = (err) => {
+export const postErrors = (err) => {
     return {
         type: Action.POST_ERRORS,
         payload: err
@@ -79,16 +79,21 @@ export const fetchPostAgainFun = fetchNow => {
 }
 
 //      Backend End-Point 
-export const fetchPostData = (url, method = 'GET', body = null, headers = { 'Content-Type': 'application/json' }) => async dispatch => {
+export const fetchPostData = (url, method = 'GET', body = null, headers) => async dispatch => {
 
     if(method === 'GET'){
         dispatch(postLoading(true));
     }
     try {
+        const token = localStorage.getItem('jwtToken');
+
         const res = await fetch(url, {
             method,
             body,
-            headers
+            headers: {
+                ...headers,
+                'Authorization': 'Bearer ' + token
+            }
         })   
         const data = await res.json();
 
@@ -118,7 +123,14 @@ export const fetchPostData = (url, method = 'GET', body = null, headers = { 'Con
 
 export const fetchProfilePosts = url => async dispatch => {
     try {
-        const res = await fetch(url);
+        const token = localStorage.getItem('jwtToken');
+
+        const res = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        });
         const data = await res.json();
         if(!res.ok){
             throw new Error(data.message)
@@ -145,7 +157,12 @@ export const fileDownload = file => async dispatch => {
             name.push(fileNameArr[i])
         }
         const fileName = name.join('-').toString();
-        const res = await fetch(`/post/download/${file}`);
+        const res = await fetch(`/post/download/${file}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
+            }
+        });
         const blob = await res.blob();
         download(blob, fileName);
     } catch (err) {

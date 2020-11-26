@@ -7,7 +7,7 @@ const userLoading = (isLoading) => {
     }   
 }
 
-const userErrors = (err) => {
+export const userErrors = (err) => {
     return {
         type: Actions.USER_ERRORS,
         payload: err
@@ -50,16 +50,21 @@ export const updateOtherUser = user => {
 }
 
 //      Backend End-Point
-export const fetchUserData = (url, method = 'GET', body = null, headers = { 'Content-Type': 'application/json' }) => async dispatch => {
+export const fetchUserData = (url, method = 'GET', body = null, headers) => async dispatch => {
 
     if(method === 'GET'){
         dispatch(userLoading(true));
     }
     try {
+        const token = localStorage.getItem('jwtToken');
+
         const res = await fetch(url, {
             method,
             body,
-            headers
+            headers: {
+                ...headers,
+                'Authorization': 'Bearer ' + token 
+            }
         })   
 
         const data = await res.json();

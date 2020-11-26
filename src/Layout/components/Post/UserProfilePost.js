@@ -25,7 +25,7 @@ function UserProfilePost({post, isAdmin}) {
                 {
                     post.mediaFile.isVideo ?  
                     <div className="all-posts-img">
-                        <video src={`http://localhost:3000/${post.mediaFile.filePath}`} controls controlsList="nodownload" autoPlay loop style={{height: '100%', width: '100%', display: 'flex'}}></video>
+                        <video src={`http://localhost:3000/${post.mediaFile.filePath}`} controls controlsList="nodownload" autoPlay muted loop style={{height: '100%', width: '100%', display: 'flex'}}></video>
                     </div>
                     : 
                     <ShowImage src={`http://localhost:3000/${post.mediaFile.filePath}`} classes="all-posts-img" />
@@ -57,7 +57,6 @@ function UserProfilePost({post, isAdmin}) {
                 show={editPost}
                 onHide={() => setEditPost(false)}
                 postId={post._id}
-                userId={post.creator}
             />
 
             <WarningModal 
@@ -66,7 +65,6 @@ function UserProfilePost({post, isAdmin}) {
                 msg={warningMsg}
                 element="post"
                 postId={post._id}
-                userId={post.creator}
             />
         </>
     )

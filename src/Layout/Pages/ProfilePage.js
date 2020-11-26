@@ -7,13 +7,14 @@ import UserProfileLayout from '../components/User/UserProfileLayout'
 import Loading from '../components/Common/UIElements/Loading';
 import ShowToast from '../components/Common/UIElements/ShowToast';
 
-import { fetchUserData, updateUser, updateOtherUser } from '../../redux/actions/userActions';
+import { fetchUserData, updateUser, updateOtherUser, userErrors } from '../../redux/actions/userActions';
 import { fetchProfilePosts, profilePosts, updateProfilePost, fetchPostAgainFun } from '../../redux/actions/postActions';
 
 function ProfilePage() {
 
     const dispatch = useDispatch();
-    const { userId, userErrorMsg, userLoading, users } = useSelector(state => state.user);
+    const { userId } = useSelector(state => state.auth);
+    const { userErrorMsg, userLoading, users } = useSelector(state => state.user);
     const { modalSuccessMsg, modalErrorMsg, showSuccessToast, showErrorToast } = useSelector(state => state.modal);
 
     const { id } = useParams();
@@ -24,9 +25,12 @@ function ProfilePage() {
         setIsAdmin(false);
         dispatch(profilePosts([]))
         dispatch(fetchPostAgainFun(false))
-        dispatch(fetchUserData(`/user/${userId}`))
-        dispatch(fetchUserData('/user'))
+        dispatch(userErrors(''))
         dispatch(fetchProfilePosts(`/post/user/${id}`))
+        if(userId !== null){
+            dispatch(fetchUserData('/user'))
+            dispatch(fetchUserData(`/user/${userId}`))
+        }
         if(id === userId){
             setIsAdmin(true);
         } 

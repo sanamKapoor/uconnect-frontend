@@ -38,15 +38,20 @@ export const showErrorToastFun  = show => {
 
 //      Backend End Point
 
-export const backendReqModal = (url, method, body = null, headers = {}, fetchPostsAgain = false, userId = null) => async dispatch => {
+export const backendReqModal = (url, method, body = null, headers, fetchPostsAgain = false, userId = null) => async dispatch => {
 
     dispatch(modalLoading(true));
 
     try {
+        const token = localStorage.getItem('jwtToken');
+        
         const res = await fetch(url, {
             method,
             body,
-            headers
+            headers: {
+                ...headers,
+                'Authorization': 'Bearer ' + token
+            }
         })   
         const data = await res.json();
 
@@ -60,7 +65,6 @@ export const backendReqModal = (url, method, body = null, headers = {}, fetchPos
         if(fetchPostsAgain){
             dispatch(fetchProfilePosts(`/post/user/${userId}`))
         }
-
     } catch (err) {
         dispatch(modalError(err.message))
         dispatch(modalLoading(false))

@@ -14,7 +14,8 @@ import { backendReqModal } from '../../../redux/actions/modalActions';
 function SinglePost({post}) {
 
     const dispatch = useDispatch();
-    const { userId, user } = useSelector(state => state.user)
+    const { user } = useSelector(state => state.user)
+    const { userId } = useSelector(state => state.auth)
 
     const [postModal, setPostModal] = useState(false);
     const [usersModal, setUsersModal] = useState(false);
@@ -64,7 +65,7 @@ function SinglePost({post}) {
         <div className="post shadow mb-4">
                 <div className="post-header p-2 d-flex justify-content-between align-items-center">
                     <Link to={`/profile/${post.creator._id}`} className="post-user pointer text-dark text-decoration-none">
-                        <ShowImage src={`http://localhost:3000/${post.creator.image}`} classes="rounded-circle mr-1 header-user-img" /> {post.creator.username}
+                        <ShowImage src={post.creator.image} classes="rounded-circle mr-1 header-user-img" /> {post.creator.username}
                     </Link>
                     <div className="text-info mr-2 pointer" onClick={blockUser}>Block</div>
                 </div>
@@ -99,7 +100,7 @@ function SinglePost({post}) {
                         <small>
                             <ShowImage src={user.image} width="20" height="20" classes="rounded-circle mr-1" /> 
                             {user.username}
-                            <span className="font-weight-bold text-secondary"> {showComment} <i className="far fa-trash-alt text-danger ml-2 pointer" onClick={deleteMyComment}></i></span>
+                            <span className="font-weight-bold text-secondary text-break"> {showComment} <i className="far fa-trash-alt text-danger ml-2 pointer" onClick={deleteMyComment}></i></span>
                         </small>
                         : ''
                     }
@@ -124,7 +125,7 @@ function SinglePost({post}) {
         </>
     )
     } else {
-        return <span className="text-center text-muted">No Post</span>
+        return ''
     }
 }
 

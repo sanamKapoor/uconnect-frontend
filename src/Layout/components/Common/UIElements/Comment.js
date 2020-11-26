@@ -7,10 +7,12 @@ import ShowImage from './ShowImage';
 
 function Comment({ usr, postId, isAdmin }) {
     
-    const { userId, users } = useSelector(state => state.user);
     const dispatch = useDispatch();
+    const { users } = useSelector(state => state.user);
+    const { userId } = useSelector(state => state.auth);
 
     const [commentedUser, setCommentedUser] = useState('');
+    const [img, setImg] = useState('');
     const [showDeleteBtn, setShowDeleteBtn] = useState(false);
 
     useEffect(() => {
@@ -26,6 +28,12 @@ function Comment({ usr, postId, isAdmin }) {
         }
     }, [usr.user, userId, users, isAdmin])
 
+    useEffect(() => {
+        if(commentedUser){
+            commentedUser.image.startsWith('https://', 0) ? setImg(commentedUser.image) : setImg(`http://localhost:3000/${commentedUser.image}`)
+        }
+    }, [commentedUser])
+
     const deleteMyComment = () => {
         dispatch(showSuccessToastFun(false))
         if(isAdmin){
@@ -35,16 +43,16 @@ function Comment({ usr, postId, isAdmin }) {
         }
     }
 
-    return (
-        <div className="post-user p-2">
-            <ShowImage src={`http://localhost:3000/${commentedUser.image}`} width="20" height="20" classes="rounded-circle mr-1" />
-            <Link to={`/profile/${commentedUser._id}`} className="text-dark text-decoration-none">
-                <small>{commentedUser.username}</small>            
-            </Link>
-            <br />
-            <small className="text-muted">{usr.text} {showDeleteBtn && <i className="far fa-trash-alt float-right m-1 pointer" onClick={deleteMyComment}></i>}</small>
-        </div>
-    )
+        return (
+            <div className="post-user p-2">
+                <ShowImage src={img} width="20" height="20" classes="rounded-circle mr-1" />
+                <Link to={`/profile/${commentedUser._id}`} className="text-dark text-decoration-none">
+                    <small>{commentedUser.username}</small>            
+                </Link>
+                <br />
+                <small className="text-muted text-break">{usr.text} {showDeleteBtn && <i className="far fa-trash-alt float-right m-1 pointer" onClick={deleteMyComment}></i>}</small>
+            </div>
+        )
 }
 
 export default Comment

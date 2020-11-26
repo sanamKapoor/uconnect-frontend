@@ -16,7 +16,8 @@ function HomeLayout() {
 
     const dispatch = useDispatch();
     const { postError, postLoading, posts, fetchPostAgain } = useSelector(state => state.post);
-    const { userId, users } = useSelector(state => state.user);
+    const { users } = useSelector(state => state.user);
+    const { userId } = useSelector(state => state.auth);
     const { modalErrorMsg, modalSuccessMsg, showErrorToast, showSuccessToast } = useSelector(state => state.modal);
 
     const [ userFound, searchResults, searchUser, setSearchUser, setUserFound, showSearchUserHandler ] = useSearchUserHook();
@@ -70,7 +71,7 @@ function HomeLayout() {
         <div className="row no-gutters mx-1 mx-sm-3 mx-md-4">
             <div className={`col-12 col-lg-7 post-area mt-5`}>
                 {
-                    (postError && !postLoading) && <p className="text-center">{postError}</p>
+                    (!postLoading && postError) && <p className="text-center">{postError}</p>
                 }
                 {
                     (postLoading) && <div className="text-center">

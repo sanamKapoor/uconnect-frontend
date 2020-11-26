@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 
 import VideoPlayer from '../Common/UIElements/VideoPlayer';
@@ -6,10 +6,12 @@ import ShowImage from '../Common/UIElements/ShowImage';
 import Comment from '../Common/UIElements/Comment';
 import ModalHeader from './ModalHeader';
 import WriteCommentForm from '../Common/WriteCommentForm';
+import UsersModal from '../Modal/UsersModal';
 
 function PostModal(props) {
 
     const { show, onHide, post, isAdmin } = props;
+    const [usersModal, setUsersModal] = useState(false);
 
     return (
       <>
@@ -39,7 +41,7 @@ function PostModal(props) {
                   {
                     post.likes.length > 0 &&
                     <>
-                    <small className='pb-2 font-weight-bold'>Liked by {post.likes.length} people</small>
+                    <small className='pb-2 font-weight-bold pointer' onClick={() => setUsersModal(true)}>Liked by {post.likes.length} people</small>
                     <br />
                     </>
                   }
@@ -64,6 +66,13 @@ function PostModal(props) {
         </div>
         </Modal.Body>
       </Modal>
+
+            <UsersModal
+                show={usersModal}
+                onHide={() => setUsersModal(false)}
+                propsUsers={post.likes}
+                errorText="No User Found."
+            />
       </>
     );
   }

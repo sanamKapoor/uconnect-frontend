@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { backendReqModal, showErrorToastFun, showSuccessToastFun } from '../../../redux/actions/modalActions';
 
-import ImageUploader from './UIElements/ImageUploader';
+import ImageUploader from './UIElements/MediaUploader';
 import Loading from './UIElements/Loading';
 import InputElement from './UIElements/InputElement';
 
@@ -47,10 +47,6 @@ function CreatePostForm({userId, parent}) {
 
         dispatch(backendReqModal('/post/create', 'POST', formData));
 
-        if(modalErrorMsg === '' && modalSuccessMsg !== ''){
-            setCaption('')
-            setMediaFile(null)
-        }
     }
 
     const fileHandler = e => {
@@ -83,7 +79,7 @@ function CreatePostForm({userId, parent}) {
             { 
             (modalErrorMsg) && 
                 <span className="text-danger my-2"> 
-                    {modalErrorMsg === 'Invalid value' ? 'Please provide both fields.' : modalErrorMsg}
+                    {modalErrorMsg === 'Invalid value' ? 'Please provide both fields' : modalErrorMsg}
                 </span>
              }
             <button type="submit" className="btn btn-secondary btn-block mt-2 mt-sm-3">Create Post</button>

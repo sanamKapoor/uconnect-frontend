@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CreatePostModal from '../Modal/CreatePostModal';
+import { logOutUser } from '../../../redux/actions/authActions';
 
 function MainNavLinks() {
+
+    const dispatch = useDispatch();
     const [createPost, setCreatePost] = useState(false);
-    const { userId } = useSelector(state => state.user)
+    const { userId } = useSelector(state => state.auth)
+
+    const logoutHandler = () => {
+      dispatch(logOutUser())
+      fetch('/auth/logout');
+    }
 
     return (
       <>
@@ -25,9 +33,9 @@ function MainNavLinks() {
             </li>
           </div>
             <li className="nav-item align-self-center">
-                <a className="nav-link mx-2" href="/">
+                <span className="nav-link mx-2 pointer" onClick={logoutHandler}>
                     Logout
-                </a>
+                </span>
             </li>
           </ul>
         </div>

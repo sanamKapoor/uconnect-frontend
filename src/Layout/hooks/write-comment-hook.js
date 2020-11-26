@@ -5,7 +5,7 @@ import { backendReqModal, showSuccessToastFun } from '../../redux/actions/modalA
 function useCommentHook() {
 
     const dispatch = useDispatch();
-    const { userId } = useSelector(state => state.user);
+    const { userId } = useSelector(state => state.auth);
     const [comment, setComment] = useState('');
 
     const writeComment = (e, postId) => {

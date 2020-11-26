@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
-import ModalHeader from './ModalHeader';
 import { useDispatch, useSelector } from 'react-redux';
 
+import ModalHeader from './ModalHeader';
 import Loading from '../Common/UIElements/Loading';
-import ImageUploader from '../Common/UIElements/ImageUploader';
+import ImageUploader from '../Common/UIElements/MediaUploader';
 import InputElement from '../Common/UIElements/InputElement';
+
 import { backendReqModal, modalError, showErrorToastFun  } from '../../../redux/actions/modalActions';
 
 function EditPostModal(props) {
 
-    const { show, onHide, postId, userId } = props 
+    const { show, onHide, postId } = props 
 
     const dispatch = useDispatch();
+    const { userId } = useSelector(state => state.auth);
     const { modalErrorMsg, modalSuccessMsg, modalLoading, showErrorToast } = useSelector(state => state.modal)
 
     const [showCaption, setShowCaption] = useState(false);
@@ -82,11 +84,6 @@ function EditPostModal(props) {
         dispatch(backendReqModal(`/post/${postId}/update-media`, 'PATCH', formData, {}, true, userId))
       }
 
-    
-      if(modalSuccessMsg !== '' && modalErrorMsg === ''){
-        setCaption('')
-        setMediaFile(null)
-      }
     }
 
     return (

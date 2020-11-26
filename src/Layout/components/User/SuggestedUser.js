@@ -7,7 +7,9 @@ import ShowImage from '../Common/UIElements/ShowImage';
 
 function SuggestedUser({ usr, showOption }) {
 
-    const { userId, user } = useSelector(state => state.user);
+    const { user } = useSelector(state => state.user);
+    const { userId } = useSelector(state => state.auth);
+    
     const dispatch = useDispatch();
 
     const [isFollow, setIsFollow] = useState(false);
@@ -46,7 +48,7 @@ function SuggestedUser({ usr, showOption }) {
     return (
         <div className="row no-gutters d-flex justify-content-between align-items-center my-3">
             <Link to={`/profile/${usr._id}`} className="post-user pointer text-dark text-decoration-none">
-                <ShowImage src={`http://localhost:3000/${usr.image}`} width="30" height="30" classes="rounded-circle mr-1" />
+                <ShowImage src={usr.image.startsWith('https://', 0) ? usr.image : `http://localhost:3000/${usr.image}`} width="30" height="30" classes="rounded-circle mr-1" />
                 <span>{usr.username}</span>
             </Link>
             {

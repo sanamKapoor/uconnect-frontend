@@ -7,7 +7,7 @@ import CreatePostForm from '../Common/CreatePostForm';
 
 function CreatePostModal({ show, onHide }) {
   
-    const { userId } = useSelector(state => state.user);
+    const { userId } = useSelector(state => state.auth);
 
     return (
       <>

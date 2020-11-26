@@ -1,29 +1,89 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import jwt_decode from 'jwt-decode';
 
-import store from './redux/store';
 import HomePage from './Layout/Pages/HomePage';
 import ProfilePage from './Layout/Pages/ProfilePage';
 import MobileNaviation from './Layout/components/Common/MobileNavigation';
 import CreatePost from './Layout/Pages/CreatePost';
 import SearchUsers from './Layout/Pages/SearchUsers';
-import ErrorPage from './Layout/Pages/ErrorPage';
+import AccountVerify from './Layout/Pages/AccountVerify';
+import Welcome from './Layout/Pages/Welcome';
+import Login from './Layout/Pages/Login';
+import SignUp from './Layout/Pages/SignUp';
+import ResetPassword from './Layout/Pages/ResetPassword';
+
+import { setCurrentUser, logOutUser } from './redux/actions/authActions';
 
 const App = () => {
 
+  const dispatch = useDispatch();
+  const { isLoggedIn, userId } = useSelector(state => state.auth);
+  const [routes, setRoutes] = useState('');
+
+  useEffect(() => {
+
+    const timmer = setInterval(() => {
+
+    //      Check for token
+    if(localStorage.jwtToken){
+    
+      const decoded = jwt_decode(localStorage.jwtToken);
+      //     Set user and isAuth
+      let user = decoded.userId;
+      userId === null && dispatch(setCurrentUser(user, true));
+      //      Check for expire token
+      const currentTime = Date.now() / 1000;
+      if(decoded.exp < currentTime){
+        //    Logout user
+        dispatch(logOutUser());
+        window.location.href = '/welcome';
+      }
+
+    }
+  }, 1000)
+
+  return () => {
+    clearInterval(timmer);
+  }
+})
+
+  useEffect(() => {
+
+    if(!isLoggedIn && userId === null){
+      setRoutes(
+        <Switch>
+          <Route exact path="/welcome" component={Welcome} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={SignUp} />
+          <Route path='/authentication/active/:token' component={AccountVerify} />
+          <Route path='/resetPassword/:token?' component={ResetPassword} />
+          <Redirect to="/welcome" />
+        </Switch>
+      )
+    } else {
+      setRoutes(
+        <>
+        <MobileNaviation />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/profile/:id" component={ProfilePage} />
+          <Route exact path="/search" component={SearchUsers} />
+          <Route exact path="/post" component={CreatePost} />
+          <Redirect to="/" />
+        </Switch>
+        </>
+      )
+    }
+
+  }, [isLoggedIn, userId])
+
   return (
       <Router>
-        <Provider store={store}>
-          <MobileNaviation />
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/profile/:id" component={ProfilePage} />
-            <Route exact path="/search" component={SearchUsers} />
-            <Route exact path="/post" component={CreatePost} />
-            <Route path="*" component={ErrorPage} />
-          </Switch>
-        </Provider>
+        {
+          routes
+        }
       </Router>
   );
 }

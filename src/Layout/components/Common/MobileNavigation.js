@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 function MobileNavigation() {
 
-    const { userId } = useSelector(state => state.user)
+    const { userId } = useSelector(state => state.auth)
 
     return (
         <main className="d-block d-lg-none shadow-lg">

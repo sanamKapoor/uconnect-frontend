@@ -16,7 +16,8 @@ import { modalError, showErrorToastFun } from '../../redux/actions/modalActions'
 function SearchUsers() {
 
     const dispatch = useDispatch();
-    const { users, userId, userLoading, userErrorMsg } = useSelector(state => state.user);
+    const { users, userLoading, userErrorMsg } = useSelector(state => state.user);
+    const { userId } = useSelector(state => state.auth);
     const { modalErrorMsg, showErrorToast } = useSelector(state => state.modal);
     
     const [ userFound, searchResults, searchUser, setSearchUser, setUserFound, showSearchUserHandler ] = useSearchUserHook();
@@ -48,7 +49,7 @@ function SearchUsers() {
     return (
         <>
             <MainHeader />       
-            { (modalErrorMsg && showErrorToast) && <ShowToast msg={modalErrorMsg} />} 
+            { (modalErrorMsg && showErrorToast) && <ShowToast msg={modalErrorMsg} /> } 
             <div className="pt-5"></div>
             <div className="container search-and-suggested-users my-5">
             { userLoading && <div className="text-center"><Loading /></div> }

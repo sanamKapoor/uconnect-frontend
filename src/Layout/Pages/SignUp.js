@@ -80,7 +80,7 @@ function SignUp() {
         formData.append('password', password);
         formData.append('image', image);
 
-        dispatch(backendReqModal('/auth/register', 'POST', formData, {}))
+        dispatch(backendReqModal('/auth/register', 'POST', formData))
 
     }
 

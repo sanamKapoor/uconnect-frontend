@@ -15,7 +15,7 @@ function ProfilePic({usr, isAdmin}) {
             const formData = new FormData();
             formData.append('image', e.target.files[0]);
 
-            dispatch(backendReqModal(`/user/${userId}/update-image`, 'POST', formData, {}))
+            dispatch(backendReqModal(`/user/${userId}/update-image`, 'POST', formData))
         } 
     }
 

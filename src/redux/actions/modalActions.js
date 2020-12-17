@@ -44,14 +44,21 @@ export const backendReqModal = (url, method, body = null, headers, fetchPostsAga
 
     try {
         const token = localStorage.getItem('jwtToken');
-        
-        const res = await fetch(process.env.REACT_APP_BACKEND_URL + url, {
-            method,
-            body,
-            headers: {
+        if(headers !== null){
+            headers = {
                 ...headers,
                 'Authorization': 'Bearer ' + token
             }
+        } else {
+            headers = {
+                'Authorization': 'Bearer ' + token
+            }
+        }
+
+        const res = await fetch(process.env.REACT_APP_BACKEND_URL + url, {
+            method,
+            body,
+            headers
         })   
         const data = await res.json();
 

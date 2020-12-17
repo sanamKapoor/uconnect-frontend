@@ -29,7 +29,7 @@ function Welcome(props) {
             </div>
             <p className="text-muted w-75 mx-auto welcome-p">Share your enjoying moments with friends and family!</p>
             </div>
-                <a href="http://localhost:8080/auth/google" className="btn btn-block btn-light shadow p-2">
+                <a href={`${process.env.REACT_APP_BACKEND_URL}/auth/google`} className="btn btn-block btn-light shadow p-2">
                      <i className="fab fa-google text-secondary mr-2"></i>  
                      Login with Google
                 </a>

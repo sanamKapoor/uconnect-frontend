@@ -1,20 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import jwt_decode from 'jwt-decode';
 
-import HomePage from './Layout/Pages/HomePage';
-import ProfilePage from './Layout/Pages/ProfilePage';
 import MobileNaviation from './Layout/components/Common/MobileNavigation';
-import CreatePost from './Layout/Pages/CreatePost';
-import SearchUsers from './Layout/Pages/SearchUsers';
-import AccountVerify from './Layout/Pages/AccountVerify';
-import Welcome from './Layout/Pages/Welcome';
-import Login from './Layout/Pages/Login';
-import SignUp from './Layout/Pages/SignUp';
-import ResetPassword from './Layout/Pages/ResetPassword';
-
+import Loading from './Layout/components/Common/UIElements/Loading';
 import { setCurrentUser, logOutUser } from './redux/actions/authActions';
+
+// import HomePage from './Layout/Pages/HomePage';
+// import ProfilePage from './Layout/Pages/ProfilePage';
+// import CreatePost from './Layout/Pages/CreatePost';
+// import SearchUsers from './Layout/Pages/SearchUsers';
+// import AccountVerify from './Layout/Pages/AccountVerify';
+// import Welcome from './Layout/Pages/Welcome';
+// import Login from './Layout/Pages/Login';
+// import SignUp from './Layout/Pages/SignUp';
+// import ResetPassword from './Layout/Pages/ResetPassword';
+
+const HomePage = React.lazy(() => import('./Layout/Pages/HomePage'))
+const ProfilePage = React.lazy(() => import('./Layout/Pages/ProfilePage'))
+const CreatePost = React.lazy(() => import('./Layout/Pages/CreatePost'))
+const SearchUsers = React.lazy(() => import('./Layout/Pages/SearchUsers'))
+const AccountVerify = React.lazy(() => import('./Layout/Pages/AccountVerify'))
+const Welcome = React.lazy(() => import('./Layout/Pages/Welcome'))
+const Login = React.lazy(() => import('./Layout/Pages/Login'))
+const SignUp = React.lazy(() => import('./Layout/Pages/SignUp'))
+const ResetPassword = React.lazy(() => import('./Layout/Pages/ResetPassword'))
 
 const App = () => {
 
@@ -81,9 +92,11 @@ const App = () => {
 
   return (
       <Router>
-        {
-          routes
-        }
+        <Suspense fallback={<div className="vw-100 vh-100 d-flex justify-content-center align-items-center"><Loading /></div>}>
+          {
+            routes
+          }
+        </Suspense>
       </Router>
   );
 }

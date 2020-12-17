@@ -15,14 +15,14 @@ function ProfilePic({usr, isAdmin}) {
             const formData = new FormData();
             formData.append('image', e.target.files[0]);
 
-            dispatch(backendReqModal(`/user/${userId}/update-image`, 'POST', formData))
+            dispatch(backendReqModal(`/user/${userId}/update-image`, 'POST', formData, { 'Content-Type': 'multipart/form-data' }))
         } 
     }
 
     return (
             <>
             <div className="col-12 col-md-4 d-flex flex-column justify-content-center align-items-center">
-                    <ShowImage src={usr.image.startsWith('https://', 0) ? usr.image : `http://localhost:3000/${usr.image}`} classes="rounded-circle profile-pic" />
+                    <ShowImage src={usr.image.startsWith('https://', 0) ? usr.image : `${process.env.REACT_APP_BACKEND_URL}/${usr.image}`} classes="rounded-circle profile-pic" />
                     {
                         isAdmin &&
                         <ProfilePicUploader 

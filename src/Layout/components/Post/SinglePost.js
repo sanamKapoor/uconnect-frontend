@@ -72,9 +72,9 @@ function SinglePost({post}) {
                 <div className="post-content">
                 {
                     post.mediaFile.isVideo ?
-                    <VideoPlayer src={`http://localhost:3000/${post.mediaFile.filePath}`} classes="post-image" height="100%" />
+                    <VideoPlayer src={`${process.env.REACT_APP_BACKEND_URL}/${post.mediaFile.filePath}`} classes="post-image" height="100%" />
                     : 
-                    <ShowImage src={`http://localhost:3000/${post.mediaFile.filePath}`} classes="post-image" />
+                    <ShowImage src={`${process.env.REACT_APP_BACKEND_URL}/${post.mediaFile.filePath}`} classes="post-image" />
                 }
                 </div>
                 <div className="post-metadata p-2">

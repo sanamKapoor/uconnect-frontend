@@ -60,7 +60,7 @@ function Login() {
                         <h1>DevConnect </h1>
                     </div>
                     <p className="text-muted w-75 mx-auto welcome-p">Share your enjoying moments with friends and family!</p>
-                    <a href="http://localhost:8080/auth/google" className="btn btn-light rounded-pill shadow"><i className="fab fa-google text-secondary mr-1 mr-sm-2"></i> Login with Google</a>
+                    <a href={`${process.env.REACT_APP_BACKEND_URL}/auth/google`} className="btn btn-light rounded-pill shadow"><i className="fab fa-google text-secondary mr-1 mr-sm-2"></i> Login with Google</a>
                 </div>
                 <div>
                     <InputElement 
@@ -89,9 +89,9 @@ function Login() {
                     }
                     <button type="submit" className="btn btn-block btn-secondary shadow my-3">Login</button>
                 </div>
-                <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-center">
                     <Link to="/signup" className="text-secondary">Create an account?</Link>
-                    <Link to="/resetPassword" className="text-secondary">Forget Password?</Link>
+                    {/* <Link to="/resetPassword" className="text-secondary">Forget Password?</Link> */}
                 </div>
             </form>
         </section>

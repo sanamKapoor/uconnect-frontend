@@ -46,7 +46,7 @@ function ProfilePage() {
     }, [id, users])
 
     useEffect(() => {
-            const socket = openSocket('http://localhost:8080');
+            const socket = openSocket(process.env.REACT_APP_BACKEND_URL);
             socket.on('posts', data => {
                 if(data.action === 'GetPost'){
                     dispatch(updateProfilePost(data.data))

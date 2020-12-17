@@ -7,7 +7,7 @@ function ModalHeader() {
     
     return (
         <>
-            <ShowImage src={user.image.startsWith('https://', 0) ? user.image : `http://localhost:3000/${user.image}`} width="30" height="30" classes="rounded-circle mr-1" /> <span>{user.username}</span>
+            <ShowImage src={user.image.startsWith('https://', 0) ? user.image : `${process.env.REACT_APP_BACKEND_URL}/${user.image}`} width="30" height="30" classes="rounded-circle mr-1" /> <span>{user.username}</span>
         </>
     )
 }

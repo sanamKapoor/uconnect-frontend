@@ -25,10 +25,10 @@ function UserProfilePost({post, isAdmin}) {
                 {
                     post.mediaFile.isVideo ?  
                     <div className="all-posts-img">
-                        <video src={`http://localhost:3000/${post.mediaFile.filePath}`} controls controlsList="nodownload" autoPlay muted loop style={{height: '100%', width: '100%', display: 'flex'}}></video>
+                        <video src={`${process.env.REACT_APP_BACKEND_URL}/${post.mediaFile.filePath}`} controls controlsList="nodownload" autoPlay muted loop style={{height: '100%', width: '100%', display: 'flex'}}></video>
                     </div>
                     : 
-                    <ShowImage src={`http://localhost:3000/${post.mediaFile.filePath}`} classes="all-posts-img" />
+                    <ShowImage src={`${process.env.REACT_APP_BACKEND_URL}/${post.mediaFile.filePath}`} classes="all-posts-img" />
                 }
                 {
                     isAdmin &&

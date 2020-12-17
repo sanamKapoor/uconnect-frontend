@@ -87,7 +87,7 @@ export const fetchPostData = (url, method = 'GET', body = null, headers) => asyn
     try {
         const token = localStorage.getItem('jwtToken');
 
-        const res = await fetch(url, {
+        const res = await fetch(process.env.REACT_APP_BACKEND_URL + url, {
             method,
             body,
             headers: {
@@ -125,7 +125,7 @@ export const fetchProfilePosts = url => async dispatch => {
     try {
         const token = localStorage.getItem('jwtToken');
 
-        const res = await fetch(url, {
+        const res = await fetch(process.env.REACT_APP_BACKEND_URL + url, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token
@@ -157,7 +157,7 @@ export const fileDownload = file => async dispatch => {
             name.push(fileNameArr[i])
         }
         const fileName = name.join('-').toString();
-        const res = await fetch(`/post/download/${file}`, {
+        const res = await fetch(process.env.REACT_APP_BACKEND_URL + `/post/download/${file}`, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')

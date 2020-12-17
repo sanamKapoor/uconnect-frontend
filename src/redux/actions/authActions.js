@@ -39,7 +39,7 @@ export const authEndPoint = (url, method = 'GET', body, headers) => async dispat
     dispatch(authLoading(true))
 
     try {
-        const res = await fetch(url, {
+        const res = await fetch(process.env.REACT_APP_BACKEND_URL + url, {
             method,
             body, 
             headers

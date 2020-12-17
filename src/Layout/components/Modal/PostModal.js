@@ -33,9 +33,9 @@ function PostModal(props) {
             <div className="col-12 col-lg-7 p-2">
                 {
                     post.mediaFile.isVideo ? 
-                    <VideoPlayer src={`http://localhost:3000/${post.mediaFile.filePath}`} classes="modal-image" height="auto" />
+                    <VideoPlayer src={`${process.env.REACT_APP_BACKEND_URL}/${post.mediaFile.filePath}`} classes="modal-image" height="auto" />
                     : 
-                    <ShowImage src={`http://localhost:3000/${post.mediaFile.filePath}`} classes="modal-image" />
+                    <ShowImage src={`${process.env.REACT_APP_BACKEND_URL}/${post.mediaFile.filePath}`} classes="modal-image" />
                 }
                 <div className="modal-post-content">
                   {

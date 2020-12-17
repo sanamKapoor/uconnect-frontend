@@ -30,7 +30,7 @@ function Comment({ usr, postId, isAdmin }) {
 
     useEffect(() => {
         if(commentedUser){
-            commentedUser.image.startsWith('https://', 0) ? setImg(commentedUser.image) : setImg(`http://localhost:3000/${commentedUser.image}`)
+            commentedUser.image.startsWith('https://', 0) ? setImg(commentedUser.image) : setImg(`${process.env.REACT_APP_BACKEND_URL}/${commentedUser.image}`)
         }
     }, [commentedUser])
 

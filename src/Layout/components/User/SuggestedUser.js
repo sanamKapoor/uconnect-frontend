@@ -48,7 +48,7 @@ function SuggestedUser({ usr, showOption }) {
     return (
         <div className="row no-gutters d-flex justify-content-between align-items-center my-3">
             <Link to={`/profile/${usr._id}`} className="post-user pointer text-dark text-decoration-none">
-                <ShowImage src={usr.image.startsWith('https://', 0) ? usr.image : `${process.env.REACT_APP_BACKEND_URL}/${usr.image}`} width="30" height="30" classes="rounded-circle mr-1" />
+                <ShowImage src={usr.image} width="30" height="30" classes="rounded-circle mr-1" />
                 <span>{usr.username}</span>
             </Link>
             {

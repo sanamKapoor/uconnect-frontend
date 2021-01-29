@@ -149,22 +149,11 @@ export const fetchProfilePosts = url => async dispatch => {
     }
 }
 
-export const fileDownload = file => async dispatch => {
+export const fileDownload = (url, file) => async dispatch => {
     try {
-        const fileNameArr = file.split('-');
-        let name = [];
-        for(let i = 1; i < fileNameArr.length; i++){
-            name.push(fileNameArr[i])
-        }
-        const fileName = name.join('-').toString();
-        const res = await fetch(process.env.REACT_APP_BACKEND_URL + `/post/download/${file}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
-            }
-        });
+        const res = await fetch(url);
         const blob = await res.blob();
-        download(blob, fileName);
+        download(blob, file);
     } catch (err) {
         dispatch(postErrors(err.message))
     }

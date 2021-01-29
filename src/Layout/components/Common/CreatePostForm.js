@@ -57,7 +57,10 @@ function CreatePostForm({userId, parent}) {
 
 
     if(modalLoading){
-        return <div className="d-flex justify-content-center align-items-center" style={{height: `${modalHeight}px`}}><Loading /></div>
+        return <div className="d-flex flex-column justify-content-center align-items-center" style={{height: `${modalHeight}px`}}>
+            <Loading />
+            <span className="my-2">Please wait...</span>
+        </div>
     } else {
         return (
         <form className="form p-0 p-sm-2 text-center" ref={formRef} onSubmit={submitHandler}>

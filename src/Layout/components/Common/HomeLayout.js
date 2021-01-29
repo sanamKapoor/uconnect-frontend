@@ -18,7 +18,7 @@ function HomeLayout() {
     const { postError, postLoading, posts, fetchPostAgain } = useSelector(state => state.post);
     const { users } = useSelector(state => state.user);
     const { userId } = useSelector(state => state.auth);
-    const { modalErrorMsg, modalSuccessMsg, showErrorToast, showSuccessToast } = useSelector(state => state.modal);
+    const { modalErrorMsg, modalSuccessMsg } = useSelector(state => state.modal);
 
     const [ userFound, searchResults, searchUser, setSearchUser, setUserFound, showSearchUserHandler ] = useSearchUserHook();
     const [connectionsPost, setConnectionsPost] = useState([])
@@ -56,14 +56,12 @@ function HomeLayout() {
         const timer = setTimeout(() => {
           modalSuccessMsg && dispatch(modalMsg(''))
           modalErrorMsg && dispatch(modalError(''))
-          !showErrorToast && dispatch(showErrorToastFun(true))
-          showSuccessToast && dispatch(showSuccessToastFun(false))
         }, 2000)
   
         return () => {
           clearTimeout(timer);
         }
-      }, [dispatch, modalErrorMsg, modalSuccessMsg, showSuccessToast, showErrorToast])
+      }, [dispatch, modalErrorMsg, modalSuccessMsg])
 
     return (
     <>

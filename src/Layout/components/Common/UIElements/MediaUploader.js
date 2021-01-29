@@ -10,13 +10,13 @@ function ImageUploader({mediaFile, fileHandler}) {
     return (
         <div className="file-upload my-2 my-sm-3">
             <span className="text-muted text-center px-2">
-                { mediaFile ? mediaFile.name : 'Select any image and video file' }
+                { mediaFile ? mediaFile.name : 'Select any image file' }
             </span>
             <input 
                 type="file"
                 ref={filePickerRef}
                 style={{"display": "none"}}
-                accept=".jpg,.jpeg,.png,.mp4"
+                accept=".jpg,.jpeg,.png"
                 onChange={fileHandler}
                 />
             <button type="button" onClick={pickerFileHandler} className="btn btn-secondary btn-sm my-2">Upload</button>

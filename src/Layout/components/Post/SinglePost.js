@@ -47,8 +47,8 @@ function SinglePost({post}) {
         dispatch(backendReqModal(`/post/${post._id}/${userId}/like-unlike`, 'POST'))
     }
 
-    const fileDownloadHandler = (file) => {
-        dispatch(fileDownload(file))
+    const fileDownloadHandler = (url, file) => {
+        dispatch(fileDownload(url, file))
     }
 
     const deleteMyComment = () => {
@@ -72,9 +72,9 @@ function SinglePost({post}) {
                 <div className="post-content">
                 {
                     post.mediaFile.isVideo ?
-                    <VideoPlayer src={`${process.env.REACT_APP_BACKEND_URL}/${post.mediaFile.filePath}`} classes="post-image" height="100%" />
+                    <VideoPlayer src={post.mediaFile.filePath} classes="post-image" height="100%" />
                     : 
-                    <ShowImage src={`${process.env.REACT_APP_BACKEND_URL}/${post.mediaFile.filePath}`} classes="post-image" />
+                    <ShowImage src={post.mediaFile.filePath} classes="post-image" />
                 }
                 </div>
                 <div className="post-metadata p-2">
@@ -83,7 +83,7 @@ function SinglePost({post}) {
                             <i className={`fas fa-heart ${likeBtn ? 'text-danger' : 'text-secondary'} mx-1 post-icon`} onClick={likeHandler}></i>
                             <i className="far fa-comment text-dark mx-1 post-icon" onClick={() => setPostModal(true)}></i>
                         </div>
-                        <i className="fas fa-download text-dark post-icon" onClick={() => fileDownloadHandler(post.mediaFile.fileName)}></i>
+                        <i className="fas fa-download text-dark post-icon" onClick={() => fileDownloadHandler(post.mediaFile.filePath, post.mediaFile.fileName)}></i>
                     </div>
                     {
                         post.likes.length > 0 &&

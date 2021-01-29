@@ -1,13 +1,26 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 
 import ModalHeader from './ModalHeader';
 import CreatePostForm from '../Common/CreatePostForm';
+import { useEffect } from 'react';
+import { showSuccessToastFun, showErrorToastFun } from '../../../redux/actions/modalActions';
 
 function CreatePostModal({ show, onHide }) {
   
+    const dispatch = useDispatch();
     const { userId } = useSelector(state => state.auth);
+
+    useEffect(() => {
+      if(show){
+        dispatch(showErrorToastFun(false))
+        dispatch(showSuccessToastFun(true))
+      } else {
+        dispatch(showErrorToastFun(true))
+        dispatch(showSuccessToastFun(false))
+      }
+    }, [show, dispatch])
 
     return (
       <>

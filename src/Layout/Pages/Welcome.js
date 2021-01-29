@@ -25,7 +25,7 @@ function Welcome(props) {
         <div className="login-options p-3 p-sm-4 p-md-5 text-center bg-light m-2">
             <div className="pb-md-4 pb-sm-3 pb-2">
             <div className="logo">
-                <h1>DevConnect </h1>
+                <h1>UConnect </h1>
             </div>
             <p className="text-muted w-75 mx-auto welcome-p">Share your enjoying moments with friends and family!</p>
             </div>

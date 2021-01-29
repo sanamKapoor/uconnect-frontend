@@ -102,9 +102,11 @@ function EditPostModal(props) {
           {
             modalLoading ? 
             <div 
-              className="d-flex justify-content-center align-items-center" 
+              className="d-flex flex-column justify-content-center align-items-center" 
               style={{height: `${showFileInput ? modalHeight * 2 : modalHeight}px`}}>
-            <Loading /></div>      
+            <Loading />
+            <span className="my-2">Please wait...</span>
+            </div>      
             :
         <form className="form p-1 p-sm-2 text-center" onSubmit={submitHandler}>
             <p className="text-left">What would you like to update ?</p>

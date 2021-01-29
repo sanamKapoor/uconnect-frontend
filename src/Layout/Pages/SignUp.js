@@ -102,7 +102,7 @@ function SignUp() {
                 <form onSubmit={submitHandler} className="form signup-form p-3 p-lg-4 p-xl-5 text-center bg-light">
                     <div className="pb-lg-3 pb-md-2 pb-1">
                         <div className="logo">
-                            <h1>DevConnect </h1>
+                            <h1>UConnect </h1>
                         </div>
                         <p className="text-muted mx-2 welcome-p">Share your enjoying moments with friends and family!</p>
                         <a href={`${process.env.REACT_APP_BACKEND_URL}/auth/google`} className="btn btn-light rounded-pill shadow"><i className="fab fa-google text-secondary mr-1 mr-sm-2"></i> Login with Google</a>

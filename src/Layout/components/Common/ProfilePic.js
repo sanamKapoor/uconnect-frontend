@@ -22,7 +22,7 @@ function ProfilePic({usr, isAdmin}) {
     return (
             <>
             <div className="col-12 col-md-4 d-flex flex-column justify-content-center align-items-center">
-                    <ShowImage src={usr.image.startsWith('https://', 0) ? usr.image : `${process.env.REACT_APP_BACKEND_URL}/${usr.image}`} classes="rounded-circle profile-pic" />
+                    <ShowImage src={usr.image} classes="rounded-circle profile-pic" />
                     {
                         isAdmin &&
                         <ProfilePicUploader 

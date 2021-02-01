@@ -81,7 +81,9 @@ function EditPostModal(props) {
         formData.append('mediaFile', mediaFile);
         formData.append('creator', userId);
 
-        dispatch(backendReqModal(`/post/${postId}/update-media`, 'PATCH', formData, null, true, userId))
+        dispatch(backendReqModal(`/post/${postId}/update-media`, 'PATCH', formData, {
+          'Content-Type': 'multipart/form-data'
+        }, true, userId))
       }
 
     }

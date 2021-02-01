@@ -45,7 +45,9 @@ function CreatePostForm({userId, parent}) {
         formData.append('mediaFile', mediaFile);
         formData.append('creator', userId)
 
-        dispatch(backendReqModal('/post/create', 'POST', formData, null));
+        dispatch(backendReqModal('/post/create', 'POST', formData, {
+            'Content-Type': 'multipart/form-data'
+        }));
 
     }
 

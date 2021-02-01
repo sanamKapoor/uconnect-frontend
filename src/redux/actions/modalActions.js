@@ -58,6 +58,7 @@ export const backendReqModal = (url, method, body = null, headers, fetchPostsAga
         const res = await fetch(process.env.REACT_APP_BACKEND_URL + url, {
             method,
             body,
+            mode: 'no-cors',
             headers
         })   
         const data = await res.json();

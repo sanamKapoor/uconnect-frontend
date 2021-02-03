@@ -35,7 +35,7 @@ const App = () => {
 
   useEffect(() => {
 
-    // const timmer = setInterval(() => {
+    const timmer = setInterval(() => {
 
     //      Check for token
     if(localStorage.jwtToken){
@@ -53,11 +53,11 @@ const App = () => {
       }
 
     }
-  // }, 1000)
+  }, 1000)
 
-  // return () => {
-  //   clearInterval(timmer);
-  // }
+  return () => {
+    clearInterval(timmer);
+  }
 })
 
   useEffect(() => {

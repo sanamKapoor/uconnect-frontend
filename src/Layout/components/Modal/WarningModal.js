@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -11,7 +11,7 @@ function WarningModal(props) {
     const { show, onHide, msg, postId, element } = props;
 
     const dispatch = useDispatch();
-    const { modalErrorMsg } = useSelector(state => state.modal)
+    const { modalErrorMsg, modalSuccessMsg } = useSelector(state => state.modal)
     const { userId } = useSelector(state => state.auth);
     
     const deleteHandler = () => {
@@ -25,9 +25,6 @@ function WarningModal(props) {
           break;
         case 'account':
           dispatch(backendReqModal(`/user/${userId}`, 'DELETE'));
-          setTimeout(() => {
-            dispatch(logOutUser())
-          }, 2500)
           break;
         default:
           onHide()
@@ -36,6 +33,12 @@ function WarningModal(props) {
           onHide()
         }
     }
+
+    useEffect(() => {
+      if(modalSuccessMsg === 'User Deleted'){
+        dispatch(logOutUser())
+      }
+    }, [modalSuccessMsg, dispatch])
 
     return (
       <Modal

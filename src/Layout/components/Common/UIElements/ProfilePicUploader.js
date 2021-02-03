@@ -1,6 +1,6 @@
 import React, { createRef } from 'react'
 
-function ProfilePicUploader({fileHandler, btnText, btnClass}) {
+function ProfilePicUploader({fileHandler, btnText, btnClass, disable}) {
     const filePickerRef = createRef();
 
     const pickerFileHandler = () => {
@@ -16,7 +16,7 @@ function ProfilePicUploader({fileHandler, btnText, btnClass}) {
                 accept=".jpg,.jpeg,.png"
                 onChange={fileHandler}
                 />
-            <button className={btnClass} onClick={pickerFileHandler}>{btnText}</button>
+            <button className={btnClass} disabled={disable} onClick={pickerFileHandler}>{btnText}</button>
         </>
     )
 }

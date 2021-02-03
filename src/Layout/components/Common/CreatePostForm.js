@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { backendReqModal, showErrorToastFun, showSuccessToastFun } from '../../../redux/actions/modalActions';
+import { backendReqModal, modalError, showErrorToastFun, showSuccessToastFun } from '../../../redux/actions/modalActions';
 
 import ImageUploader from './UIElements/MediaUploader';
 import Loading from './UIElements/Loading';
@@ -16,6 +16,10 @@ function CreatePostForm({userId, parent}) {
     const [modalHeight, setModalHeight] = useState(0);
     const [caption, setCaption] = useState('');
     const [mediaFile, setMediaFile] = useState(null);
+    const [mediaUrl, setMediaUrl] = useState('');
+    const [mediaId, setMediaId] = useState('');
+    const [mediaName, setMediaName] = useState('');
+    const [disable, setDisable] = useState(false);
 
     useEffect(() => {
         let height;
@@ -40,21 +44,56 @@ function CreatePostForm({userId, parent}) {
         dispatch(showErrorToastFun(false));
         dispatch(showSuccessToastFun(true));
 
-        const formData = new FormData();
-        formData.append('caption', caption);
-        formData.append('mediaFile', mediaFile);
-        formData.append('creator', userId)
+        const postData = JSON.stringify({
+            caption,
+            mediaFile: {
+                mediaId: mediaId,
+                fileName: mediaName,
+                filePath: mediaUrl
+            },
+            creator: userId
+        })
 
-        dispatch(backendReqModal('/post/create', 'POST', formData, {
-            'Content-Type': 'multipart/form-data'
+        dispatch(backendReqModal('/post/create', 'POST', postData, {
+            'Content-Type': 'application/json'
         }));
 
     }
 
     const fileHandler = e => {
         if(e.target.files && e.target.files.length === 1){
+
             setMediaFile(e.target.files[0])
-        } 
+            const file = e.target.files[0];
+
+            if(file.type === "image/jpg" || file.type === "image/png" || file.type === "image/jpeg") {
+
+            setDisable(true);
+            const data = new FormData()
+            data.append("file", file)
+            data.append("upload_preset", process.env.REACT_APP_PRESET)
+            data.append("cloud_name", process.env.REACT_APP_CLOUD_NAME)
+
+            fetch(`${process.env.REACT_APP_CLOUDINARY_URL}/${process.env.REACT_APP_CLOUD_NAME}/image/upload`, {
+                method:"post",
+                body: data
+            })
+            .then(res => res.json())
+            .then(data => {
+                setMediaUrl(data.secure_url)
+                setMediaId(data.public_id)
+                setMediaName(file.name)
+                setDisable(false);
+                dispatch(modalError(''))
+            })
+            .catch(err=> {
+                dispatch(modalError('Something went wrong'))
+            })
+         } else {
+            dispatch(modalError('Invalid file type'))
+            return;
+         }
+        }
     }
 
 
@@ -87,7 +126,9 @@ function CreatePostForm({userId, parent}) {
                     {modalErrorMsg === 'Invalid value' ? 'Please provide both fields' : modalErrorMsg}
                 </span>
              }
-            <button type="submit" className="btn btn-secondary btn-block mt-2 mt-sm-3">Create Post</button>
+            <button type="submit" disabled={disable} className="btn btn-secondary btn-block mt-2 mt-sm-3">
+                { disable ? 'Please wait...' : 'Create Post'}
+            </button>
         </form>
     )
     }

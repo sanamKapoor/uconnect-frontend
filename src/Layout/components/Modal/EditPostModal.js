@@ -23,6 +23,10 @@ function EditPostModal(props) {
 
     const [caption, setCaption] = useState('');
     const [mediaFile, setMediaFile] = useState(null);
+    const [mediaUrl, setMediaUrl] = useState('');
+    const [mediaId, setMediaId] = useState('');
+    const [mediaName, setMediaName] = useState('');
+    const [disable, setDisable] = useState(false);
 
     useEffect(() => {
       const formEl = document.querySelector('.modal-body');
@@ -62,9 +66,37 @@ function EditPostModal(props) {
 
     const fileHandler = e => {
       if(e.target.files && e.target.files.length === 1){
+
           setMediaFile(e.target.files[0])
+          const file = e.target.files[0];
+
+          if(file.type === "image/jpg" || file.type === "image/png" || file.type === "image/jpeg") {
+
+          setDisable(true);
+          const data = new FormData()
+          data.append("file", file)
+          data.append("upload_preset", process.env.REACT_APP_PRESET)
+          data.append("cloud_name", process.env.REACT_APP_CLOUD_NAME)
+
+          fetch(`${process.env.REACT_APP_CLOUDINARY_URL}/${process.env.REACT_APP_CLOUD_NAME}/image/upload`, {
+              method:"post",
+              body: data
+          })
+          .then(res => res.json())
+          .then(data => {
+              setMediaUrl(data.secure_url)
+              setMediaId(data.public_id)
+              setMediaName(file.name)
+              setDisable(false);
+              dispatch(modalError(''))
+          })
+          .catch(err=> {
+              dispatch(modalError('Something went wrong'))
+          })
+       } 
       } 
-    }
+  }
+
 
     const submitHandler = e => {
       e.preventDefault();
@@ -77,12 +109,17 @@ function EditPostModal(props) {
       }
 
       if(mediaFile !== null){
-        const formData = new FormData();
-        formData.append('mediaFile', mediaFile);
-        formData.append('creator', userId);
+        const formData = JSON.stringify({
+          creator: userId,
+          mediaFile: {
+            mediaId: mediaId,
+            fileName: mediaName,
+            filePath: mediaUrl
+          }
+        })
 
         dispatch(backendReqModal(`/post/${postId}/update-media`, 'PATCH', formData, {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'application/json'
         }, true, userId))
       }
 
@@ -155,7 +192,9 @@ function EditPostModal(props) {
               }
               { 
                 (showFileInput || showCaption ) &&
-                <button type="submit" className="btn btn-outline-secondary btn-block mt-2 mt-sm-3">Edit Post</button>
+                <button type="submit" disabled={disable} className="btn btn-outline-secondary btn-block mt-2 mt-sm-3">
+                  { disable ? 'Please wait...' : 'Edit Post'}
+                </button>
               }
         </form>
         }

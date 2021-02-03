@@ -108,6 +108,7 @@ function UserAboutModal({ show, onHide, user }) {
                       inputType="text" 
                       inputName="location" 
                       inputValue={location}
+                      inputRef={inputRef}
                       onChangeHandler={e => setLocation(e.target.value)}
                       classes="custom-input w-100 border-top-0 border-right-0 border-left-0 my-2" 
                       inputText="Location" 

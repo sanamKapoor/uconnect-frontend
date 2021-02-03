@@ -19,8 +19,12 @@ function SignUp() {
     const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [url, setUrl] = useState('');
+    const [imgId, setimgId] = useState('');
+
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState(defaultImage);
+    const [disable, setDisable] = useState(false);
 
     useEffect(() => {
         if(!image){
@@ -62,8 +66,37 @@ function SignUp() {
 
     const fileHandler = e => {
         if(e.target.files && e.target.files.length === 1){
-            setImage(e.target.files[0]);
-        } 
+
+            setImage(e.target.files[0])
+            const file = e.target.files[0];
+
+            if(file.type === "image/jpg" || file.type === "image/png" || file.type === "image/jpeg") {
+
+            setDisable(true);
+            const data = new FormData()
+            data.append("file", file)
+            data.append("upload_preset", process.env.REACT_APP_PRESET)
+            data.append("cloud_name", process.env.REACT_APP_CLOUD_NAME)
+
+            fetch(`${process.env.REACT_APP_CLOUDINARY_URL}/${process.env.REACT_APP_CLOUD_NAME}/image/upload`, {
+                method:"post",
+                body: data
+            })
+            .then(res => res.json())
+            .then(data => {
+                setUrl(data.secure_url)
+                setimgId(data.public_id)
+                setDisable(false);
+                dispatch(modalError(''))
+            })
+            .catch(err=> {
+                dispatch(modalError('Something went wrong'))
+            })
+         } else {
+            dispatch(modalError('Invalid file type'))
+            return;
+         }
+        }
     }
 
     const submitHandler = e => {
@@ -74,15 +107,20 @@ function SignUp() {
             return;
         }
 
-        const formData = new FormData();
-        formData.append('username', username);
-        formData.append('email', email);
-        formData.append('password', password);
-        formData.append('image', image);
+        if (image === null) {
+            dispatch(modalError('Please provide profile picture'))
+            return;
+        }
 
-        dispatch(backendReqModal('/auth/register', 'POST', formData, {
-            'Content-Type': 'multipart/form-data'
-        }))
+        let formData = JSON.stringify({
+            username,
+            email,
+            password,
+            image: url,
+            imgId
+        })
+
+        dispatch(backendReqModal('/auth/register', 'POST', formData, { 'Content-Type': 'application/json' }))
 
     }
 
@@ -145,7 +183,9 @@ function SignUp() {
                                 {modalErrorMsg}
                             </span>
                         }
-                        <button type="submit" className="btn btn-block btn-secondary my-3 shadow">Sign Up</button>
+                        <button type="submit" disabled={disable} className="btn btn-block btn-secondary my-3 shadow">
+                            { disable ? 'Please wait...' : 'Sign Up'}
+                        </button>
                     </div>
                     <Link to="/login" className="text-secondary">Already have an account?</Link>
                 </form>

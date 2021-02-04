@@ -46,7 +46,7 @@ const App = () => {
       userId === null && dispatch(setCurrentUser(user, true));
       //      Check for expire token
       const currentTime = new Date();
-      console.log(currentTime)
+      console.log(currentTime.getTime(), decoded.exp * 1000)
       if(decoded.exp * 1000 < currentTime.getTime()){
         //    Logout user
         // dispatch(logOutUser());

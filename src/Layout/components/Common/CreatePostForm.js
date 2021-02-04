@@ -119,6 +119,7 @@ function CreatePostForm({userId, parent}) {
             <ImageUploader 
                 mediaFile={mediaFile}
                 fileHandler={fileHandler}
+                disable={disable}
             />
             { 
             (modalErrorMsg) && 

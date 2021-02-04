@@ -182,6 +182,7 @@ function EditPostModal(props) {
                 <ImageUploader 
                   mediaFile={mediaFile}
                   fileHandler={fileHandler}
+                  disable={disable}
                  />
               }
               { 

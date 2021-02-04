@@ -1,6 +1,6 @@
 import React, { createRef } from 'react'
 
-function ImageUploader({mediaFile, fileHandler}) {
+function ImageUploader({mediaFile, fileHandler, disable}) {
     const filePickerRef = createRef();
 
     const pickerFileHandler = () => {
@@ -19,7 +19,7 @@ function ImageUploader({mediaFile, fileHandler}) {
                 accept=".jpg,.jpeg,.png"
                 onChange={fileHandler}
                 />
-            <button type="button" onClick={pickerFileHandler} className="btn btn-secondary btn-sm my-2">Upload</button>
+            <button type="button" disabled={disable} onClick={pickerFileHandler} className="btn btn-secondary btn-sm my-2">Upload</button>
         </div>
     )
 }

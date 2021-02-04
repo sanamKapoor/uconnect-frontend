@@ -45,18 +45,10 @@ const App = () => {
       let user = decoded.userId;
       userId === null && dispatch(setCurrentUser(user, true));
       //      Check for expire token
-      // const currentTime = new Date();
-
-      // if(decoded.exp * 1000 < currentTime.getTime()){
-      //   //    Logout user
-      //   dispatch(logOutUser());
-      //   window.location.href = '/welcome';
-      // }
-
-      const remainTimer = localStorage.getItem('expTime') - 1000;
+      const remainTimer = localStorage.getItem('expTime') - 1;
       localStorage.setItem('expTime', remainTimer);
 
-      if(remainTimer <= 0){
+      if(remainTimer && remainTimer <= 0){
         dispatch(logOutUser());
         window.location.href = '/welcome';
       }

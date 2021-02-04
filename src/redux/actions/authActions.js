@@ -31,7 +31,7 @@ export const setCurrentUser = (userId, isLoggedIn) => {
 }
 
 export const logOutUser = () => dispatch => {
-    localStorage.removeItem('jwtToken')
+    localStorage.clear();
     dispatch(setCurrentUser(null, false))
 }
 

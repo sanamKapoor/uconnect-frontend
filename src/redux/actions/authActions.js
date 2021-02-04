@@ -57,7 +57,6 @@ export const authEndPoint = (url, method = 'GET', body, headers) => async dispat
           const { token } = data;
           localStorage.setItem('jwtToken', token);
           const decoded = jwt_decode(token);
-          console.log(decoded)
           dispatch(setCurrentUser(decoded.userId, true));
         }
     } catch (error) {

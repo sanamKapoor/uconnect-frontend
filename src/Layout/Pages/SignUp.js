@@ -135,6 +135,7 @@ function SignUp() {
                 <ProfilePicUploader 
                     fileHandler={fileHandler}
                     btnText="Upload Image"
+                    disable={disable}
                     btnClass="mt-3 btn btn-secondary btn-sm rounded-pill px-lg-4 py-lg-2 px-3 py-1"
                 />
             </div>

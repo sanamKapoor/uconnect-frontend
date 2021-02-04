@@ -48,8 +48,9 @@ const App = () => {
       const currentTime = Date.now() / 1000;
       if(decoded.exp < currentTime){
         //    Logout user
-        dispatch(logOutUser());
-        window.location.href = '/welcome';
+        console.log(decoded.exp, currentTime)
+        // dispatch(logOutUser());
+        // window.location.href = '/welcome';
       }
 
     }

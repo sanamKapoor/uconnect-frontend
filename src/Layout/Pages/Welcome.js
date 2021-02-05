@@ -16,7 +16,6 @@ function Welcome(props) {
             const decoded = jwt_decode(query.token);
             dispatch(setCurrentUser(decoded.userId, true))
             localStorage.setItem('jwtToken', query.token);
-            localStorage.setItem('expTime', decoded.exp - decoded.iat)
         }
     }, [props, dispatch])
 

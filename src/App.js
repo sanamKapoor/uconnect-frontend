@@ -7,16 +7,6 @@ import MobileNaviation from './Layout/components/Common/MobileNavigation';
 import Loading from './Layout/components/Common/UIElements/Loading';
 import { setCurrentUser, logOutUser } from './redux/actions/authActions';
 
-// import HomePage from './Layout/Pages/HomePage';
-// import ProfilePage from './Layout/Pages/ProfilePage';
-// import CreatePost from './Layout/Pages/CreatePost';
-// import SearchUsers from './Layout/Pages/SearchUsers';
-// import AccountVerify from './Layout/Pages/AccountVerify';
-// import Welcome from './Layout/Pages/Welcome';
-// import Login from './Layout/Pages/Login';
-// import SignUp from './Layout/Pages/SignUp';
-// import ResetPassword from './Layout/Pages/ResetPassword';
-
 const HomePage = React.lazy(() => import('./Layout/Pages/HomePage'))
 const ProfilePage = React.lazy(() => import('./Layout/Pages/ProfilePage'))
 const CreatePost = React.lazy(() => import('./Layout/Pages/CreatePost'))
@@ -30,7 +20,10 @@ const ResetPassword = React.lazy(() => import('./Layout/Pages/ResetPassword'))
 const App = () => {
 
   const dispatch = useDispatch();
-  const { isLoggedIn, userId } = useSelector(state => state.auth);
+  const { isLoggedIn, userId, authError } = useSelector(state => state.auth);
+  const { postError } = useSelector(state => state.post)
+  const { userError } = useSelector(state => state.user)
+  const { modalErrorMsg } = useSelector(state => state.modal)
   const [routes, setRoutes] = useState('');
 
   useEffect(() => {
@@ -46,8 +39,10 @@ const App = () => {
       userId === null && dispatch(setCurrentUser(user, true));
 
       //      Check for expire token
-      const remainTimer = Math.floor(new Date().getTime() / 1000);
-      if(remainTimer > decoded.exp){
+      const remainTimer = localStorage.getItem('expTime') - 1;
+      localStorage.setItem('expTime', remainTimer);
+
+      if(remainTimer <= 0){
         dispatch(logOutUser());
         window.location.href = '/welcome';
       }
@@ -58,6 +53,18 @@ const App = () => {
     clearInterval(timmer);
   }
 })
+
+  useEffect(() => {
+    if(
+        authError === 'Unexpected token U in JSON at position 0' ||
+        modalErrorMsg === 'Unexpected token U in JSON at position 0' ||
+        postError === 'Unexpected token U in JSON at position 0' ||
+        userError === 'Unexpected token U in JSON at position 0'
+      ) {
+        dispatch(logOutUser());
+        window.location.href = '/welcome';
+      }
+  }, [dispatch, authError, modalErrorMsg, postError, userError])
 
   useEffect(() => {
 

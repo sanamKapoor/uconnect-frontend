@@ -87,7 +87,7 @@ export const fetchUserData = (url, method = 'GET', body = null, headers) => asyn
             dispatch(userSuccess(msg))
         }
     } catch (err) {
-        dispatch(userErrors(err.message))
         dispatch(userLoading(false))
+        err.message ? dispatch(userErrors(err.message)) : dispatch(userErrors(err))
     }
 }

@@ -73,8 +73,8 @@ export const backendReqModal = (url, method, body = null, headers, fetchPostsAga
             dispatch(fetchProfilePosts(`/post/user/${userId}`))
         }
     } catch (err) {
-        dispatch(modalError(err.message))
         dispatch(modalLoading(false))
+        err.message ? dispatch(modalError(err.message)) : dispatch(modalError(err))
     }
 
 }

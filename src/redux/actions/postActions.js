@@ -115,8 +115,8 @@ export const fetchPostData = (url, method = 'GET', body = null, headers) => asyn
             dispatch(postSuccess(msg))
         }
     } catch (err) {
-        dispatch(postErrors(err.message))
         dispatch(postLoading(false))
+        err.message ? dispatch(postErrors(err.message)) : dispatch(postErrors(err))
     }
 
 }
@@ -145,7 +145,7 @@ export const fetchProfilePosts = url => async dispatch => {
             dispatch(profilePostSuccess(msg))
         }
     } catch (err) {
-        dispatch(profilePostErrors(err.message))
+        err.message ? dispatch(profilePostErrors(err.message)) : dispatch(profilePostErrors(err))
     }
 }
 
@@ -155,6 +155,6 @@ export const fileDownload = (url, file) => async dispatch => {
         const blob = await res.blob();
         download(blob, file);
     } catch (err) {
-        dispatch(postErrors(err.message))
+        err.message ? dispatch(postErrors(err.message)) : dispatch(postErrors(err))
     }
 }

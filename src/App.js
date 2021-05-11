@@ -26,9 +26,9 @@ const App = () => {
   const { modalErrorMsg } = useSelector(state => state.modal)
   const [routes, setRoutes] = useState('');
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   const timmer = setInterval(() => {
+    const timmer = setInterval(() => {
 
     //      Check for token
     if(localStorage.jwtToken){
@@ -47,12 +47,12 @@ const App = () => {
         window.location.href = '/welcome';
       }
     }
-//   }, 1000)
+  }, 1000)
 
-//   return () => {
-//     clearInterval(timmer);
-//   }
-// })
+  return () => {
+    clearInterval(timmer);
+  }
+})
 
   useEffect(() => {
     if(
@@ -100,7 +100,7 @@ const App = () => {
       <Router>
         <Suspense fallback={<div className="vw-100 vh-100 d-flex justify-content-center align-items-center"><Loading /></div>}>
           {
-            routes
+            routes ? routes : <div className="vw-100 vh-100 d-flex justify-content-center align-items-center"><Loading /></div>
           }
         </Suspense>
       </Router>

@@ -67,8 +67,7 @@ const App = () => {
   }, [dispatch, authError, modalErrorMsg, postError, userError])
 
   useEffect(() => {
-
-    if(!isLoggedIn && userId === null){
+    if(!localStorage.jwtToken){
       setRoutes(
         <Switch>
           <Route exact path="/welcome" component={Welcome} />

@@ -42,8 +42,7 @@ export const authEndPoint = (url, method = 'GET', body, headers) => async dispat
         const res = await fetch(process.env.REACT_APP_BACKEND_URL + url, {
             method,
             body, 
-            headers,
-            mode: 'no-cors'
+            headers
         })
         const data = await res.json();
 

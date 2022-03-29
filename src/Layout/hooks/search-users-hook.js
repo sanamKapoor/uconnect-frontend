@@ -18,7 +18,7 @@ function useSearchUserHook() {
 
     const showSearchUserHandler = (e) => {
         setSearchResults([]);
-        if(e.key === 'Enter'){
+        // if(e.key === 'Enter'){
             setUserFound(false)
             users.filter(u => {
                 if(u.username === searchUser){
@@ -27,7 +27,7 @@ function useSearchUserHook() {
                 } 
                 return false;
             })
-        }
+        // }
     }
 
     return [ userFound, searchResults, searchUser, setSearchUser, setUserFound, showSearchUserHandler ]

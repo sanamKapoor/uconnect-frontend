@@ -59,13 +59,13 @@ function SinglePost({post}) {
         dispatch(backendReqModal(`/user/${post.creator._id}/block/${userId}`, 'POST'))
     }
 
-    if(post.creator._id !== userId){
+    if(post.creator?._id !== userId){
     return (
         <>
         <div className="post shadow mb-4">
                 <div className="post-header p-2 d-flex justify-content-between align-items-center">
-                    <Link to={`/profile/${post.creator._id}`} className="post-user pointer text-dark text-decoration-none">
-                        <ShowImage src={post.creator.image} classes="rounded-circle mr-1 header-user-img" /> {post.creator.username}
+                    <Link to={`/profile/${post.creator?._id}`} className="post-user pointer text-dark text-decoration-none">
+                        <ShowImage src={post.creator?.image} classes="rounded-circle mr-1 header-user-img" /> {post.creator?.username}
                     </Link>
                     <div className="text-info mr-2 pointer" onClick={blockUser}>Block</div>
                 </div>

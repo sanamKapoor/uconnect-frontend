@@ -89,9 +89,9 @@ function Login() {
                     }
                     <button type="submit" className="btn btn-block btn-secondary shadow my-3">Login</button>
                 </div>
-                <div className="d-flex justify-content-center">
+                <div className="d-flex justify-content-between">
                     <Link to="/signup" className="text-secondary">Create an account?</Link>
-                    {/* <Link to="/resetPassword" className="text-secondary">Forget Password?</Link> */}
+                    <Link to="/resetPassword" className="text-secondary">Forget Password?</Link>
                 </div>
             </form>
         </section>

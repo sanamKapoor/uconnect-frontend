@@ -27,10 +27,10 @@ function UserProfileData({ usr, isAdmin }) {
     }
 
     useEffect(() => {
-        setUserPosts(usr.posts.length);
+        usr.posts?.length > 0 && setUserPosts(usr.posts.length);
         if(user.connections){
             let found = false;
-            if(user.connections.length > 0){
+            if(user.connections?.length > 0){
                 for(let u of user.connections){
                     if(u === usr._id){
                         found = true;
@@ -82,7 +82,7 @@ function UserProfileData({ usr, isAdmin }) {
                     <div className="row my-3 font-weight-bold text-center text-md-left">
                     <div className="col">{userPosts} {userPosts > 1 ? 'Posts' : 'Post' }</div> 
                     {usr.connections && <div className="col"> 
-                    <span className="pointer" onClick={() => setUsersModal(true)}>{usr.connections.length} {usr.connections.length > 1 ? 'Connections' : 'Connection' }</span>
+                    <span className="pointer" onClick={() => setUsersModal(true)}>{usr.connections?.length} {usr.connections.length > 1 ? 'Connections' : 'Connection' }</span>
                     </div> }
                     {
                         !isAdmin &&

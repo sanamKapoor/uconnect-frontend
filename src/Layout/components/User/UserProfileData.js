@@ -27,7 +27,7 @@ function UserProfileData({ usr, isAdmin }) {
     }
 
     useEffect(() => {
-        usr.posts?.length > 0 && setUserPosts(usr.posts.length);
+        usr.posts && setUserPosts(usr.posts.length);
         if(user.connections){
             let found = false;
             if(user.connections?.length > 0){

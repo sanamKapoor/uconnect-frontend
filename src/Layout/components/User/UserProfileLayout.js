@@ -73,7 +73,7 @@ function UserProfileLayout({ isAdmin, currentUser }) {
     } else {
        return (
            <div className="text-center mt-4">
-               Something went wrong!
+               {/* Something went wrong! */}
            </div>
        )
     }

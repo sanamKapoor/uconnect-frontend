@@ -70,7 +70,7 @@ function ProfilePage() {
         if(userLoading){
             return <div className="text-center mt-4"><Loading /></div>
         }
-        else if(userErrorMsg){
+        else if(userErrorMsg && !userLoading){
             return <p className="text-center mt-4">{userErrorMsg}</p>
         }
         return (

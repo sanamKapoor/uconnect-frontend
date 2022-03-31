@@ -151,13 +151,13 @@ function EditPostModal(props) {
             <p className="text-left">What would you like to update ?</p>
             <div className="d-flex text-left">
               <div className="form-check w-100">
-                <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" onChange={captionHandler} checked={showCaption === true} />
+                <input className="form-check-input pointer" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" onChange={captionHandler} checked={showCaption === true} />
                 <label className="form-check-label" htmlFor="exampleRadios1">
                   Caption
                 </label>
               </div>
               <div className="form-check w-100">
-                <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" onChange={showFileHandler} checked={showFileInput === true} />
+                <input className="form-check-input pointer" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" onChange={showFileHandler} checked={showFileInput === true} />
                 <label className="form-check-label" htmlFor="exampleRadios1">
                   Media
                 </label>

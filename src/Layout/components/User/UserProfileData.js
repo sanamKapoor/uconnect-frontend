@@ -25,7 +25,7 @@ function UserProfileData({ usr, isAdmin }) {
         setWarningModal(true);
         setWarningMsg(msg)
     }
-
+    
     useEffect(() => {
         usr.posts && setUserPosts(usr.posts.length);
         if(user.connections){

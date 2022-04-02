@@ -69,7 +69,7 @@ function HomeLayout() {
         <div className="row no-gutters mx-1 mx-sm-3 mx-md-4">
             <div className={`col-12 col-lg-7 post-area mt-5`}>
                 {
-                    (!postLoading && postError) && <p className="text-center">{postError}</p>
+                    (postError) && <p className="text-center">{postError}</p>
                 }
                 {
                     (postLoading) && <div className="text-center">

@@ -108,7 +108,7 @@ function AuthEssentials({ icon, heading, inputText, btnText, txt, token, url, fo
                 </>
             }
             <button onClick={activeAccount} className={`btn btn-info btn-sm ${!txt && 'btn-block mt-2'}`}>
-                { loading ? 'Please wait...' : btnText}
+                {btnText}
             </button>
             </div>
         </div>

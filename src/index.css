@@ -114,6 +114,7 @@ body {
   @media (max-height: 500px) {
     .login {
       height: auto;
+      background-color: #8DA399;
     }
   }
   

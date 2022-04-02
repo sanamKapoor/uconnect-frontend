@@ -194,7 +194,7 @@ function EditPostModal(props) {
               { 
                 (showFileInput || showCaption ) &&
                 <button type="submit" disabled={disable} className="btn btn-outline-secondary btn-block mt-2 mt-sm-3">
-                  { disable ? 'Please wait...' : 'Edit Post'}
+                  { (disable || modalLoading) ? 'Please wait...' : 'Edit Post'}
                 </button>
               }
         </form>

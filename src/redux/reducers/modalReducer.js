@@ -13,17 +13,19 @@ export default (state = initialState, action) => {
         case Actions.MODAL_LOADING:
             return {
                 ...state,
-                modalLoading: action.payload
+                modalLoading: action.payload,
             }
         case Actions.MODAL_ERROR:
             return {
                 ...state,
+                modalLoading: false,
                 modalErrorMsg: action.payload,
                 modalSuccessMsg: ''
             }
         case Actions.MODAL_SUCCESS:
             return {
                 ...state,
+                modalLoading: false,
                 modalErrorMsg: '',
                 modalSuccessMsg: action.payload
             }

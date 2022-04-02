@@ -14,7 +14,7 @@ import { backendReqModal, modalError, modalMsg, showSuccessToastFun } from '../.
 function SignUp() {
 
     const dispatch = useDispatch();
-    const { modalErrorMsg, modalSuccessMsg, showSuccessToast } = useSelector(state => state.modal);
+    const { modalLoading, modalErrorMsg, modalSuccessMsg, showSuccessToast } = useSelector(state => state.modal);
 
     const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
@@ -185,7 +185,7 @@ function SignUp() {
                             </span>
                         }
                         <button type="submit" disabled={disable} className="btn btn-block btn-secondary my-3 shadow">
-                            { disable ? 'Please wait...' : 'Sign Up'}
+                            { (disable || modalLoading) ? 'Please wait...' : 'Sign Up'}
                         </button>
                     </div>
                     <Link to="/login" className="text-secondary">Already have an account?</Link>

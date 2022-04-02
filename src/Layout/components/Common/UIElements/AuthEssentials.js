@@ -7,7 +7,7 @@ import ShowToast from './ShowToast';
 function AuthEssentials({ icon, heading, inputText, btnText, txt, token, url, forWhat, showInputs, backToLogin }) {
 
     const dispatch = useDispatch();
-    const { authSuccess, authError } = useSelector(state => state.auth);
+    const { loading, authSuccess, authError } = useSelector(state => state.auth);
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -107,7 +107,9 @@ function AuthEssentials({ icon, heading, inputText, btnText, txt, token, url, fo
                 }
                 </>
             }
-            <button onClick={activeAccount} className={`btn btn-info btn-sm ${!txt && 'btn-block mt-2'}`}>{btnText}</button>
+            <button onClick={activeAccount} className={`btn btn-info btn-sm ${!txt && 'btn-block mt-2'}`}>
+                { loading ? 'Please wait...' : btnText}
+            </button>
             </div>
         </div>
         </div>

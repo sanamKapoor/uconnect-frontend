@@ -8,7 +8,7 @@ import { authEndPoint, authErrorMsg } from '../../redux/actions/authActions';
 function Login() {
     
     const dispatch = useDispatch();
-    const { authError, authSuccess } = useSelector(state => state.auth);
+    const { loading, authError, authSuccess } = useSelector(state => state.auth);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -87,7 +87,9 @@ function Login() {
                             {authError}
                         </span>
                     }
-                    <button type="submit" className="btn btn-block btn-secondary shadow my-3">Login</button>
+                    <button type="submit" className="btn btn-block btn-secondary shadow my-3">
+                        {loading ? 'Please wait...' : 'Login' }
+                    </button>
                 </div>
                 <div className="d-flex justify-content-between">
                     <Link to="/signup" className="text-secondary">Create an account?</Link>

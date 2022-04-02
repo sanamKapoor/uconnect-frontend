@@ -13,17 +13,21 @@ export default (state = initialState, action) => {
         case Action.AUTH_LOADING: 
             return {
                 ...state,
-                loading: true
+                loading: true,
+                authSuccess: '',
+                authError: ''
             }
         case Action.AUTH_SUCCESS:
             return {
                 ...state,
+                loading: false,
                 authSuccess: action.payload,
                 authError: ''
             }
         case Action.AUTH_ERROR:
             return {
                 ...state,
+                loading: false,
                 authError: action.payload,
                 authSuccess: ''
             }

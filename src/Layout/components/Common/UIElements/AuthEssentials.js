@@ -7,7 +7,7 @@ import ShowToast from './ShowToast';
 function AuthEssentials({ icon, heading, inputText, btnText, txt, token, url, forWhat, showInputs, backToLogin }) {
 
     const dispatch = useDispatch();
-    const { loading, authSuccess, authError } = useSelector(state => state.auth);
+    const { authSuccess, authError } = useSelector(state => state.auth);
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
